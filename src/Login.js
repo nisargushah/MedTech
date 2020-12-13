@@ -1,6 +1,8 @@
 import React, { Component } from "react";
-import { doFetch, auth } from "./RestController";
+import { doFetch } from "./RestController";
 import { Redirect } from "react-router-dom";
+
+import "./styles.css";
 
 class Login extends Component {
   constructor() {
@@ -20,7 +22,7 @@ class Login extends Component {
 
   login() {
     if (this.state.username && this.state.password) {
-      doFetch("POST","/auth", auth, this.state).then((responseJson)=>{
+      doFetch("POST","/auth", {}, this.state).then((responseJson)=>{
         if (responseJson) {
           sessionStorage.setItem("token", responseJson['access_token']);
           sessionStorage.setItem("expires_in", responseJson['expires_in']);

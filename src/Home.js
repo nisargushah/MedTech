@@ -1,8 +1,11 @@
 import React, { Component } from "react";
 //import { getUser, removeUserSession } from "./Utils/Common";
 import { Redirect } from "react-router-dom";
-import { getFacilities, getAllPatients } from "./RestController";
 import PatientList from "./components/PatientList";
+import EncounterList from "./components/EncounterList";
+import ComponentExample from "./components/ComponentExample";
+
+import "./styles.css";
 
 class Home extends Component {
   constructor() {
@@ -10,6 +13,8 @@ class Home extends Component {
 
     this.state = {
       //add states here
+      test: "1",
+      openEncounters: false,
       redirectToReferrer: false
     };
   }
@@ -17,18 +22,16 @@ class Home extends Component {
   handleLogout() {
     sessionStorage.removeItem("token");
     this.setState({ redirectToReferrer: true });
-    console.log(this.state.redirectToReferrer);
   }
 
-  handleGetAllFacilities() {
-    getFacilities().then((result) => {
-      let responseJson = result;
-    });
-  }
-  handleGetAllPatients() {
-    getAllPatients().then((result) => {
-      let responseJson = result;
-    });
+  myCallback = (dataFromChild) => {
+    this.setState({ test: dataFromChild.test });
+    console.log(this.state.test);
+  };
+
+  setOpenEncounters = (dataFromChild) => {
+    this.setState({openEncounters: dataFromChild});
+    console.log(this.state);
   }
 
   render() {
@@ -38,8 +41,8 @@ class Home extends Component {
       console.log("logout");
       return <Redirect to={"/"} />;
     }*/
+    //console.log("Home.js"+this.state.openEncounters);
     if (this.state.redirectToReferrer == true) {
-      console.log("Redirect working");
       return <Redirect to={"/Login"} />;
     }
 
@@ -55,7 +58,7 @@ class Home extends Component {
             onClick={this.handleLogout.bind(this)}
             value="Logout"
           />
-
+          {/*
           <input
             type="button"
             onClick={this.handleGetAllFacilities.bind(this)}
@@ -67,35 +70,38 @@ class Home extends Component {
             onClick={this.handleGetAllPatients.bind(this)}
             value="Get All Patients"
           />
-          <input
-            type="button"
-            //onClick={this.handleGetAllFacilities.bind(this)}
-            value="Placeholder"
-          />
-          <input
-            type="button"
-            //onClick={this.handleGetAllFacilities.bind(this)}
-            value="Placeholder"
-          />
-          <input
-            type="button"
-            //onClick={this.handleGetAllFacilities.bind(this)}
-            value="Placeholder"
-          />
+*/}
           <input
             type="button"
             //onClick={this.handleGetAllFacilities.bind(this)}
             value="Placeholder"
           />
           <p>Home page, you should see this when logged in</p>
+          <h1>WORK IN PROGRESS</h1>
         </div>
 
+        <hr></hr>
         {/*=========== 
         MIDDLE BODY DIV 
           Includes patients list and indexer "wiki-style table of contents"
         ===========*/}
-        
-        <PatientList />
+        <p>Patient List</p>
+        <PatientList 
+        callbackFromParent={this.setOpenEncounters}
+        openEncounters={this.state.openEncounters}
+        />
+        <hr></hr>
+        <p>Encounter List</p>
+        <EncounterList 
+        callbackFromParent={this.setOpenEncounters}
+        openEncounters={this.state.openEncounters}
+        />
+        <hr></hr>
+        <p>Component Example Placeholder</p>
+        <ComponentExample
+          callbackFromParent={this.myCallback}
+          tester={this.state.test}
+        />
       </div>
     );
   }
