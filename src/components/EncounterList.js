@@ -8,15 +8,17 @@ GET /api/patient/:pid/encounter/:eid
 var testdata = {}
 */
 
-
 import { doFetch, getAuth } from "../RestController";
 import React, { Component } from "react";
 import { React15Tabulator } from "react-tabulator";
-import {selectedPatientIndex} from "./PatientList"
+import { selectedPatientIndex } from "./PatientList";
 
 import "../styles.css";
 const columns = [
-  { title: "ID", field: "id", width: 60 }
+  { title: "ID", field: "id", width: 60 },
+  { title: "Date", field: "date" },
+  { title: "Catname", field: "pc_catname" },
+  { title: "Reason", field: "reason" }
 ];
 
 export var selectedEncounterIndex;
@@ -32,49 +34,35 @@ class EncounterList extends Component {
       //This is from JSON data which will be set upon patient selection for display
       //WORK IN PROGRESS
       openEncounters: false,
-      id:0
+      id: 0
     };
   }
 
-  /*
-  shouldComponentUpdate(nextProps) {
-    console.log("should comp update");
-    console.log(this.state.openEncounters !== nextProps.openEncounters);
-    if(this.state.openEncounters !== nextProps.openEncounters){
-      this.setState({openEncounters: true});
-    }
-    return this.state.openEncounters !== nextProps.openEncounters;
-  }*/
-  getDerivedStateFromProps(nextProps, prevState){
-    if(nextProps.openEncounters!==prevState.openEncounters){
-      return { openEncounters: nextProps.openEncounters};
-   }
-   else return null;
-  }
-
   componentDidUpdate(prevProps, prevState) {
-    console.log(prevProps.openEncounters + " "+ this.props.openEncounters);
-    if(this.props.openEncounters){
+    //console.log(prevProps.openEncounters + " "+ this.props.openEncounters);
+    if (this.props.openEncounters) {
       //Perform some operation here
       this.getEncounter();
-      this.setState({openEncounters : false});
+      this.setState({ openEncounters: false });
       this.props.callbackFromParent(this.state.openEncounters);
-      
-    
     }
   }
 
-  getEncounter(index){
+  getEncounter(index) {
     var indexerStr = "";
     if (index) {
       indexerStr = "/" + index;
     }
-    doFetch("GET", "patient/"+selectedPatientIndex.toString()+"/encounter"+indexerStr, getAuth()).then((responseJson) => {
+    doFetch(
+      "GET",
+      "patient/" + selectedPatientIndex.toString() + "/encounter" + indexerStr,
+      getAuth()
+    ).then((responseJson) => {
       if (responseJson) {
         this.setState({ data: responseJson });
         console.log(responseJson);
-      }else{
-        this.setState({data: []});
+      } else {
+        this.setState({ data: [] });
       }
     });
   }
@@ -84,18 +72,16 @@ class EncounterList extends Component {
   }
 
   rowClick = (e, row) => {
-    //selectedEncounterIndex
-
-  }
+    selectedPatientIndex = row._row.cells[0].value;
+  };
 
   render() {
     //console.log("Encounterlist.js state "+this.state.openEncounters);
     //console.log("Encounterlist.js props "+this.props.openEncounters);
-    
-    if(this.state.openEncounters){
+
+    if (this.state.openEncounters) {
       //this.getEncounter();
-      
-        //this.setState({openEncounters: false});
+      //this.setState({openEncounters: false});
     }
 
     const options = {
@@ -121,7 +107,6 @@ class EncounterList extends Component {
             className="custom-css-class"
           />
         </div>
-
 
         <p>Encounter ID: {this.state.id}</p>
       </div>
