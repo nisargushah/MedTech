@@ -15,7 +15,7 @@ function App() {
           <div className="content">
             <Switch>
               <Route exact path="/" component={Login} />
-              
+
               <PublicRoute path="/Login" component={Login} />
               <PrivateRoute path="/Home" component={Home} />
             </Switch>

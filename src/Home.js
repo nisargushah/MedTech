@@ -60,6 +60,11 @@ class Home extends Component {
               value="Placeholder"
             />
             <input
+            type="button"
+            //onClick={this.handleGetAllFacilities.bind(this)}
+            value="Placeholder"
+            />
+            <input
               type="button"
               onClick={this.handleLogout.bind(this)}
               value="Logout"
@@ -88,12 +93,12 @@ class Home extends Component {
         MIDDLE BODY DIV 
           Includes patients list and indexer "wiki-style table of contents"
         ===========*/}
-        <div id="patientList">
+        <h2 id="patientList">Patient List</h2>
         <PatientList 
         id="patientList"
         callbackFromParent={this.setOpenEncounters}
         openEncounters={this.state.openEncounters}
-        /></div>
+        />
         <hr></hr>
         <p>Encounter List</p>
         <EncounterList 
