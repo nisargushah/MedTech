@@ -4,8 +4,8 @@ import { formatPatients } from "./Formatter";
 import { doFetch, getAuth } from "../RestController";
 import EncounterList from "./EncounterList";
 import "react-tabulator/lib/css/bootstrap/tabulator_bootstrap.min.css";
+import "./PatientList.css";
 
-import "../styles.css";
 const columns = [
   { title: "ID", field: "id", width: 60 },
   { title: "Name", field: "name" },
@@ -134,7 +134,7 @@ class PatientList extends Component {
         PATIENT PROFILE
         =================*/}
         <div>
-          <p>Patient Profile</p>
+          <p id="patientProfile">Patient Profile</p>
           <p>Phone Number: {this.state.phone_contact}</p>
         </div>
       </div>

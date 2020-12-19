@@ -42,7 +42,7 @@ class Home extends Component {
       return <Redirect to={"/"} />;
     }*/
     //console.log("Home.js"+this.state.openEncounters);
-    if (this.state.redirectToReferrer == true) {
+    if (this.state.redirectToReferrer === true) {
       return <Redirect to={"/Login"} />;
     }
 
@@ -53,40 +53,49 @@ class Home extends Component {
           Dashboard for login and misc buttons
         ===========*/}
         <div className="header">
-          <input
-            type="button"
-            onClick={this.handleLogout.bind(this)}
-            value="Logout"
-          />
-          {/*
-          <input
-            type="button"
-            onClick={this.handleGetAllFacilities.bind(this)}
-            value="Get All Facilities"
-          />
-
-          <input
-            type="button"
-            onClick={this.handleGetAllPatients.bind(this)}
-            value="Get All Patients"
-          />
-*/}
-          <input
+          <div className="header-right">
+            <input
+              type="button"
+              //onClick={this.handleGetAllFacilities.bind(this)}
+              value="Placeholder"
+            />
+            <input
             type="button"
             //onClick={this.handleGetAllFacilities.bind(this)}
             value="Placeholder"
-          />
-          <p>Home page, you should see this when logged in</p>
-          <h1>WORK IN PROGRESS</h1>
+            />
+            <input
+              type="button"
+              onClick={this.handleLogout.bind(this)}
+              value="Logout"
+            />
+          </div>
+          <div className="header-left">
+            <h3>MedTech</h3>
+          </div>
         </div>
-
-        <hr></hr>
+        {/*=========== 
+        SIDEBAR DIV 
+          Hyperlinks to various sections of the page
+        ===========*/}
+        <div className="sidenav">
+          <a href="#patientList">Patient List</a>
+          <a href="#patientProfile">Patient Profile</a>
+          <a href="#encounterList">Encounter List</a>
+          <a href="#encounterProfile">Encounter Profile</a>
+          <a href="#encounterVitals">Vitals</a>
+          <a href="#encounterSOAP">SOAP</a>
+          <a href="#appointment">Appointment</a>
+        </div>
+        
+        <div className="main">
         {/*=========== 
         MIDDLE BODY DIV 
           Includes patients list and indexer "wiki-style table of contents"
         ===========*/}
-        <p>Patient List</p>
+        <h2 id="patientList">Patient List</h2>
         <PatientList 
+        id="patientList"
         callbackFromParent={this.setOpenEncounters}
         openEncounters={this.state.openEncounters}
         />
@@ -102,6 +111,31 @@ class Home extends Component {
           callbackFromParent={this.myCallback}
           tester={this.state.test}
         />
+        <p>scroll test</p>
+        <p>scroll test</p>
+        <p>scroll test</p>
+        <p>scroll test</p>
+        <p>scroll test</p>
+        <p>scroll test</p>
+        <p>scroll test</p>
+        <p>scroll test</p>
+        <p>scroll test</p>
+        <p>scroll test</p>
+        <p>scroll test</p>
+        <p>scroll test</p>
+        <p>scroll test</p>
+        <p>scroll test</p>
+        <p>scroll test</p>
+        <p>scroll test</p>
+        <p>scroll test</p>
+        <p>scroll test</p>
+        <p>scroll test</p>
+        <p>scroll test</p>
+        <p>scroll test</p>
+        <p>scroll test</p>
+        <p>scroll test</p>
+        <p>scroll test</p>
+        </div>
       </div>
     );
   }
