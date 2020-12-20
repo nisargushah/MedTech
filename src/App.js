@@ -10,6 +10,8 @@ import PublicRoute from "./Utils/PublicRoute";
 function App() {
   return (
     <div className="App">
+      {" "}
+      hello world
       <BrowserRouter>
         <div>
           <div className="content">
