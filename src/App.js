@@ -9,6 +9,7 @@ import PrivateRoute from "./Utils/PrivateRoute";
 import PublicRoute from "./Utils/PublicRoute";
 function App() {
   return (
+    //import 
     <div className="App">
       <BrowserRouter>
         <div>
