@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { doFetch } from "./RestController";
+import { doFetch, getAuth } from "./RestController";
 import { Redirect } from "react-router-dom";
 
 import "./styles.css";
@@ -13,7 +13,8 @@ class Login extends Component {
       username: "",
       password: "",
       scope: "default",
-      redirectToReferrer: false
+      redirectToReferrer: false,
+      redirectToReferrerAdmin: false
     };
 
     this.login = this.login.bind(this);
@@ -28,9 +29,22 @@ class Login extends Component {
           sessionStorage.setItem("expires_in", responseJson['expires_in']);
           sessionStorage.setItem("token_type", responseJson['token_type']);
           this.setState({ redirectToReferrer: true });
+          //this.checkAdmin();
         }
       });
     }
+  }
+
+  checkAdmin(){
+    doFetch("GET","/users/authorized/"+this.state.username,getAuth()).then((responseJson) => {
+      if(responseJson['authorized']){
+        //If authorized == 1, redirect to administration
+        this.setState({redirectToReferrerAdmin: true});
+        sessionStorage.setItem("administrator", 1);
+      }else{
+        this.setState({ redirectToReferrer: true });
+      }
+    });
   }
 
   onChange(e) {
@@ -45,6 +59,10 @@ class Login extends Component {
 
     if (sessionStorage.getItem("token")) {
       return <Redirect to={"/Home"} />;
+    }
+
+    if (this.state.redirectToReferrerAdmin) {
+      return <Redirect to={"/Admin"} />;
     }
 
     return (
