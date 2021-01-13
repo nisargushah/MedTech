@@ -25,26 +25,11 @@ class PatientList extends Component {
       data: [],
       formattedData: [],
       //This is from JSON data which will be set upon patient selection for display
-      city: "",
-      country_code: "",
-      dob: "",
-      email: "",
-      ethnicity: "",
-      fname: "",
-      id: "",
-      lname: "",
-      mname: "",
-      phone_contact: "",
-      pid: "",
-      postal_code: "",
-      pubpid: "",
-      race: "",
-      sex: "",
-      state: "",
-      street: "",
-      title: "",
+      currentSelection: {},
 
-      openEncounters: false
+      openEncounters: false,
+      showPatientList: true,
+      showPatientFile: false
     };
   }
 
@@ -75,29 +60,15 @@ class PatientList extends Component {
     //console.log("ref table: ", this.ref.table); // this is the Tabulator table instance
     //console.log("rowClick id: ${row.getData().id}", row, e);
     selectedPatientIndex = row._row.cells[0].value;
-    let selection = this.state.data[selectedPatientIndex-1];
-    this.setState({city: selection["city"]});
-    this.setState({country_code: selection["country_code"]});
-    this.setState({dob: selection["dob"]});
-    this.setState({email: selection["email"]});
-    this.setState({ethnicity: selection["ethnicity"]});
-    this.setState({fname: selection["fname"]});
-    this.setState({id: selection["id"]});
-    this.setState({lname: selection["lname"]});
-    this.setState({mname: selection["mname"]});
-    this.setState({phone_contact: selection["phone_contact"]});
-    this.setState({pid: selection["pid"]});
-    this.setState({postal_code: selection["postal_code"]});
-    this.setState({pubpid: selection["pubpid"]});
-    this.setState({race: selection["race"]});
-    this.setState({sex: selection["sex"]});
-    this.setState({state: selection["state"]});
-    this.setState({street: selection["street"]});
-    this.setState({title: selection["title"]});
+    this.setState({ currentSelection: this.state.data[selectedPatientIndex - 1] });
 
-    this.setState({openEncounters: true});
+    this.setState({ openEncounters: true });
     this.props.callbackFromParent(this.state.openEncounters);
-    this.setState({openEncounters: false});
+    this.setState({ openEncounters: false });
+  };
+
+  onChange = (e) => {
+    this.setState({ [e.target.name]: !this.state[e.target.name] });
   };
 
   render() {
@@ -112,13 +83,16 @@ class PatientList extends Component {
         {/*=================
         PATIENT LIST IN TABLE
         =================*/}
+        <input
+          type="button"
+          value="Patient List"
+          name="showPatientList"
+          className="tab"
+          id="patientList"
+          onClick={this.onChange}
+        />
+        {this.state.showPatientList ? (
         <div>
-          <input
-            type="button"
-            onClick={this.handleGetPatient.bind(this)}
-            value="Get Patient"
-          />
-
           <React15Tabulator
             ref={(ref) => (this.ref = ref)}
             columns={columns}
@@ -129,14 +103,25 @@ class PatientList extends Component {
             className="custom-css-class"
           />
         </div>
+        ) : null}
 
         {/*=================
-        PATIENT PROFILE
+        PATIENT FILE
         =================*/}
+        <input
+          type="button"
+          value="Patient File"
+          name="showPatientFile"
+          className="subtab"
+          id="patientProfile"
+          onClick={this.onChange}
+        />
+        
+        {this.state.showPatientFile ? (
         <div>
-          <p id="patientProfile">Patient Profile</p>
-          <p>Phone Number: {this.state.phone_contact}</p>
+          <p>Phone Number: {this.state.currentSelection.phone}</p>
         </div>
+        ) : null}
       </div>
     );
   }

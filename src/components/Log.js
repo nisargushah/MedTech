@@ -55,7 +55,7 @@ class Log extends Component {
     return (
       <div>
         <Calendar startDate={this.state.startDate} /> 
-
+        <p>this.props.</p>
         <React15Tabulator
           ref={(ref) => (this.ref = ref)}
           columns={logColumns}

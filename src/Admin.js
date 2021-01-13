@@ -9,21 +9,6 @@ import "react-tabulator/lib/css/bootstrap/tabulator_bootstrap.min.css";
 export var selectedUsername = "";
 var index = -1;
 
-const userColumns = [
-  { title: "ID", field: "id", width: 60 },
-  { title: "Username", field: "username" },
-  { title: "Name", field: "name" },
-  { title: "Active", field: "active" },
-  { title: "Specialty", field: "specialty" }
-];
-
-const logColumns = [
-  { title: "Date", field: "date" },
-  { title: "Username", field: "user" },
-  { title: "Event", field: "event" },
-  { title: "Comment", field: "comments" }
-];
-
 class Admin extends Component {
   constructor(props) {
     super(props);

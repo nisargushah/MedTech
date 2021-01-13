@@ -12,7 +12,6 @@ import { doFetch, getAuth } from "../RestController";
 import React, { Component } from "react";
 import { React15Tabulator } from "react-tabulator";
 import { selectedPatientIndex } from "./PatientList";
-
 import "../styles.css";
 const columns = [
   { title: "ID", field: "id", width: 60 },
@@ -31,10 +30,9 @@ class EncounterList extends Component {
       //Data states holds patient data, formattedData is for table
       data: [],
       formattedData: [],
+      currentSelection: {},
       //This is from JSON data which will be set upon patient selection for display
-      //WORK IN PROGRESS
       openEncounters: false,
-      id: 0
     };
   }
 
@@ -72,7 +70,14 @@ class EncounterList extends Component {
   }
 
   rowClick = (e, row) => {
-    selectedPatientIndex = row._row.cells[0].value;
+    selectedEncounterIndex = row._row.cells[0].value;
+    this.setState({
+      currentSelection: this.state.data[selectedEncounterIndex]
+    });
+  };
+
+  onChange = (e) => {
+    this.setState({ [e.target.name]: !this.state[e.target.name] });
   };
 
   render() {
@@ -90,13 +95,17 @@ class EncounterList extends Component {
     };
     return (
       <div>
-        <div>
-          <input
-            type="button"
-            onClick={this.handleButton.bind(this)}
-            value="Test Button"
-          />
+        <input
+          type="button"
+          value="Encounter List"
+          name="showEncounterList"
+          className="tab"
+          id="encounterList"
+          onClick={this.onChange}
+        />
 
+       {this.state.showEncounterList ?(
+        <div>
           <React15Tabulator
             ref={(ref) => (this.ref = ref)}
             columns={columns}
@@ -107,8 +116,21 @@ class EncounterList extends Component {
             className="custom-css-class"
           />
         </div>
+        ): null}
 
-        <p>Encounter ID: {this.state.id}</p>
+        <input
+          type="button"
+          value="Encounter File"
+          name="showEncounterFile"
+          className="subtab"
+          id="encounterFile"
+          onClick={this.onChange}
+        />
+        {this.state.showEncounterFile ?(
+        <div>
+          <p>Encounter ID: {this.state.id}</p>
+        </div>
+        ): null}
       </div>
     );
   }

@@ -16,7 +16,10 @@ class Calendar extends Component {
     }
   }
 
-  onChange = (startDate, endDate) => this.setState({ startDate, endDate })
+  onChange = (startDate, endDate) => {
+    this.setState({ startDate, endDate });
+    this.props.callbackFromParent(this.state);
+  }
 
   render = () => {
     const { startDate, endDate } = this.state

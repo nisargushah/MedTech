@@ -66,29 +66,35 @@ class Login extends Component {
     }
 
     return (
-      <div className="row" id="Body">
-        <div className="medium-5 columns left">
-          <h4>Login</h4>
-          <label>Username</label>
-          <input
-            type="text"
-            name="username"
-            placeholder="Username"
-            onChange={this.onChange}
-          />
-          <label>Password</label>
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            onChange={this.onChange}
-          />
-          <input
-            type="submit"
-            className="button success"
-            value="Login"
-            onClick={this.login}
-          />
+      <div className="login">
+        <div>
+          <h1>MedTech Patient Management</h1>
+          <div className="login-child">
+            <div>
+            <input
+              type="text"
+              name="username"
+              placeholder="Username"
+              onChange={this.onChange}
+            />
+            </div>
+            <div>
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
+              onChange={this.onChange}
+            />
+            </div>
+            <div>
+            <input
+              type="submit"
+              className="button success"
+              value="Login"
+              onClick={this.login}
+            />
+            </div>
+          </div>
         </div>
       </div>
     );
