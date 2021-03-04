@@ -1,9 +1,20 @@
 import React, { Component } from "react";
 //import { getUser, removeUserSession } from "./Utils/Common";
 import { Redirect } from "react-router-dom";
+
 import PatientList from "./components/PatientList";
 import EncounterList from "./components/EncounterList";
 import ComponentExample from "./components/ComponentExample";
+import Vital from "./components/Vital";
+import Soap from "./components/Soap";
+import MedicalProblem from "./components/MedicalProblem";
+import Allergy from "./components/Allergy";
+import Medication from "./components/Medication";
+import Surgery from "./components/Surgery";
+import DentalIssue from "./components/DentalIssue";
+import Appointment from "./components/Appointment";
+import Insurance from "./components/Insurance";
+
 
 import "./styles.css";
 
@@ -86,6 +97,7 @@ class Home extends Component {
           <a href="#encounterVitals">Vitals</a>
           <a href="#encounterSOAP">SOAP</a>
           <a href="#medicalProblem">Medical Problem</a>
+          <a href="#allergy">allergy</a>
           <a href="#surgery">Surgery</a>
           <a href="#dentalIssue">Dental Issue</a>
           <a href="#appointment">Appointment</a>
@@ -107,6 +119,16 @@ class Home extends Component {
             callbackFromParent={this.setOpenEncounters}
             openEncounters={this.state.openEncounters}
           />
+
+          <Vital/>
+          <Soap/>
+          <MedicalProblem/>
+          <Allergy/>
+          <Medication/>
+          <Surgery/>
+          <DentalIssue/>
+          <Appointment/>
+          <Insurance/>
 
           {/* 
             Vitals

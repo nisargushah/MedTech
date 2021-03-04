@@ -12,18 +12,17 @@ const columns = [
   { title: "BMI Status", field: "BMI_status" }
 ];
 
-class Allergy extends Component {
+class ComponentExample extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      //add states here
-      showAllergyList: false,
-      showAllergyFile: false,
-      showAllergyUpdate: false,
-      showAllergyPost: false,
-      showAllergyDelete: false,
-      data: [],
+      showMedicationList:false,
+      showMedicationFile:false,
+      showMedicationUpdate:false,
+      showMedicationPost:false,
+      showMedicationDelete:false,
+      data: [], 
       currentSelection: {}
     };
   }
@@ -48,13 +47,13 @@ class Allergy extends Component {
       <div>
         <input
           type="button"
-          value="Allergy List"
-          name="showAllergyList"
+          value="Medications"
+          name="showMedicationList"
           className="tab"
-          id="AllergyList"
+          id="MedicationList"
           onClick={this.onChange}
         />
-        {this.state.showAllergyList ? (<div>
+        {this.state.showMedicationList ? (<div>
           <React15Tabulator
             ref={(ref) => (this.ref = ref)}
             columns={columns}
@@ -69,25 +68,25 @@ class Allergy extends Component {
         
         <input
           type="button"
-          value="Allergy File"
-          name="showAllergyFile"
+          value="Medication File"
+          name="showMedicationFile"
           className="subtab"
-          id="AllergyFile"
+          id="MedicationFile"
           onClick={this.onChange}
         />
-        {this.state.showAllergyFile ? (<div>
-          Soap file details
+        {this.state.showMedicationFile ? (<div>
+          Medication file details
         </div>):null}
 
         <input
           type="button"
-          value="Update AllergyAP"
-          name="showAllergyUpdate"
+          value="Update Medication"
+          name="showMedicationUpdate"
           className="subtab"
-          id="AllergyUpdate"
+          id="MedicationUpdate"
           onClick={this.onChange}
         />
-        {this.state.showAllergyUpdate ? (<div>
+        {this.state.showMedicationUpdate ? (<div>
         <input
           type="button"
           onClick={this.handleButton.bind(this)}
@@ -97,13 +96,13 @@ class Allergy extends Component {
 
         <input
           type="button"
-          value="New Allergy"
-          name="showAllergyPost"
+          value="New Medication"
+          name="showMedicationPost"
           className="subtab"
-          id="AllergyPost"
+          id="MedicationPost"
           onClick={this.onChange}
         />
-        {this.state.showAllergyPost ? (<div>
+        {this.state.showMedicationPost ? (<div>
         <input
           type="button"
           onClick={this.handleButton.bind(this)}
@@ -112,13 +111,13 @@ class Allergy extends Component {
 
         <input
           type="button"
-          value="Delete Allergy"
-          name="showAllergyDelete"
+          value="Delete Medication"
+          name="showMedicationDelete"
           className="subtab"
-          id="AllergyDelete"
+          id="MedicationDelete"
           onClick={this.onChange}
         />
-        {this.state.showAllergyDelete ? (<div>
+        {this.state.showMedicationDelete ? (<div>
         <input
           type="button"
           onClick={this.handleButton.bind(this)}
@@ -129,4 +128,4 @@ class Allergy extends Component {
   }
 }
 
-export default Allergy;
+export default ComponentExample;

@@ -20,6 +20,10 @@ class Vital extends Component {
     super(props);
 
     this.state = {
+      showVitalList: false,
+      showVitalFile: false,
+      showVitalPost: false,
+      showVitalUpdate: false,
       data: [],
       currentSelection: {}
     };
@@ -60,6 +64,10 @@ class Vital extends Component {
     console.log(this.state.currentSelection);
   };
 
+  onChange = (e) => {
+    this.setState({ [e.target.name]: !this.state[e.target.name] });
+  };
+
   render() {
     const options = {
       height: 250
@@ -68,9 +76,14 @@ class Vital extends Component {
       <div>
         <input
           type="button"
-          onClick={this.handleButton.bind(this)}
-          value="Get Vitals List"
+          value="Vitals"
+          name="showVitalList"
+          className="tab"
+          id="vitalList"
+          onClick={this.onChange}
         />
+        {this.state.showVitalList ? (
+        <div>
         <React15Tabulator
             ref={(ref) => (this.ref = ref)}
             columns={columns}
@@ -80,18 +93,59 @@ class Vital extends Component {
             data-custom-attr="test-custom-attribute"
             className="custom-css-class"
           />
+        </div>
+        ):null}
 
         <input
           type="button"
-          onClick={this.handleButton.bind(this)}
-          value="Update Vital"
+          value="Details"
+          name="showVitalFile"
+          className="subtab"
+          id="vitalFile"
+          onClick={this.onChange}
         />
+        {this.state.showVitalFile ? (
+          <div>
+            Details on vital selection
+          </div>
+        ):null}
 
         <input
           type="button"
-          onClick={this.handleButton.bind(this)}
-          value="Post New Vital"
+          value="Update Vitals"
+          name="showVitalUpdate"
+          className="subtab"
+          id="vitalFile"
+          onClick={this.onChange}
         />
+        {this.state.showVitalUpdate ? (
+          <div>
+            <input
+              type="button"
+              onClick={this.handleButton.bind(this)}
+              value="Update Vital"
+            />
+          </div>
+        ):null}
+
+
+        <input
+          type="button"
+          value="New Vitals"
+          name="showVitalPost"
+          className="subtab"
+          id="vitalFile"
+          onClick={this.onChange}
+        />
+        {this.state.showVitalPost ? (
+          <div>
+            <input
+              type="button"
+              onClick={this.handleButton.bind(this)}
+              value="New Vital"
+            />
+          </div>
+        ):null}
       </div>
     );
   }
