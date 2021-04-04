@@ -36,7 +36,7 @@ class Soap extends Component {
     }
     doFetch(
       "GET",
-      "patient/" + selectedPatientIndex.toString() + "/encounter" + selectedEncounterIndex.toString() + "/soap_note" + indexerStr,
+      "patient/" + selectedPatientIndex.toString() + "/encounter/" + selectedEncounterIndex.toString() + "/soap_note" + indexerStr,
       getAuth()
     ).then((responseJson) => {
       if (responseJson) {
@@ -55,8 +55,10 @@ class Soap extends Component {
   rowClick = (e, row) => {
     //console.log("ref table: ", this.ref.table); // this is the Tabulator table instance
     //console.log("rowClick id: ${row.getData().id}", row, e);
-    this.setState({ currentSelection: this.data[row.getPosition()] });
-    console.log(this.state.currentSelection);
+    this.setState({
+      currentSelection: this.state.data[row.getPosition()],
+      showSoapFile: true
+    });
   };
 
   onChange = (e) => {

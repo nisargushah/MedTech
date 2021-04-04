@@ -97,7 +97,7 @@ class Home extends Component {
           <a href="#encounterVitals">Vitals</a>
           <a href="#encounterSOAP">SOAP</a>
           <a href="#medicalProblem">Medical Problem</a>
-          <a href="#allergy">allergy</a>
+          <a href="#allergy">Allergy</a>
           <a href="#surgery">Surgery</a>
           <a href="#dentalIssue">Dental Issue</a>
           <a href="#appointment">Appointment</a>

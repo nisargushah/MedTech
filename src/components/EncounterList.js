@@ -32,7 +32,7 @@ class EncounterList extends Component {
       formattedData: [],
       currentSelection: {},
       //This is from JSON data which will be set upon patient selection for display
-      openEncounters: false,
+      openEncounters: false
     };
   }
 
@@ -41,7 +41,7 @@ class EncounterList extends Component {
     if (this.props.openEncounters) {
       //Perform some operation here
       this.getEncounter();
-      this.setState({ openEncounters: false });
+      this.setState({ openEncounters: false, showEncounterList: true });
       this.props.callbackFromParent(this.state.openEncounters);
     }
   }
@@ -72,7 +72,8 @@ class EncounterList extends Component {
   rowClick = (e, row) => {
     selectedEncounterIndex = row._row.cells[0].value;
     this.setState({
-      currentSelection: this.state.data[selectedEncounterIndex]
+      currentSelection: this.state.data[row.getPosition()],
+      showEncounterFile: true
     });
   };
 
@@ -104,19 +105,19 @@ class EncounterList extends Component {
           onClick={this.onChange}
         />
 
-       {this.state.showEncounterList ?(
-        <div>
-          <React15Tabulator
-            ref={(ref) => (this.ref = ref)}
-            columns={columns}
-            data={this.state.data}
-            rowClick={this.rowClick}
-            options={options}
-            data-custom-attr="test-custom-attribute"
-            className="custom-css-class"
-          />
-        </div>
-        ): null}
+        {this.state.showEncounterList ? (
+          <div>
+            <React15Tabulator
+              ref={(ref) => (this.ref = ref)}
+              columns={columns}
+              data={this.state.data}
+              rowClick={this.rowClick}
+              options={options}
+              data-custom-attr="test-custom-attribute"
+              className="custom-css-class"
+            />
+          </div>
+        ) : null}
 
         <input
           type="button"
@@ -126,11 +127,39 @@ class EncounterList extends Component {
           id="encounterFile"
           onClick={this.onChange}
         />
-        {this.state.showEncounterFile ?(
-        <div>
-          <p>Encounter ID: {this.state.id}</p>
-        </div>
-        ): null}
+        {this.state.showEncounterFile ? (
+          <div>
+            <p>Billing Facility ID: {this.state.currentSelection.billing_facility}</p>
+            <p>Billing Facility Name:{this.state.currentSelection.billing_facility_name}</p>
+
+            <p>Billing Note: {this.state.currentSelection.billing_note}</p>
+
+            <p>Encounter ID: {this.state.currentSelection.id}</p>
+            <p>External ID: {this.state.currentSelection.external_id}</p>
+            <p>Date: {this.state.currentSelection.date}</p>
+            <p>Facility: {this.state.currentSelection.facility}</p>
+            <p>Facility ID: {this.state.currentSelection.facility_id}</p>
+            <p>Invoice Reference Number: {this.state.currentSelection.invoice_refno}</p>
+
+            <p>Last Level Billed: {this.state.currentSelection.last_level_billed}</p>
+            <p>Last Level Closed: {this.state.currentSelection.last_level_closed}</p>
+            <p>Last STMT Date: {this.state.currentSelection.last_stmt_date}</p>
+
+            <p>Onset Date: {this.state.currentSelection.onset_date}</p>
+
+            <p>PC Cat ID: {this.state.currentSelection.pc_catid}</p>
+            <p>PC Catname: {this.state.currentSelection.pc_catname}</p>
+            <p>PID: {this.state.currentSelection.pid}</p>
+            <p>Pos Code: {this.state.currentSelection.pos_code}</p>
+
+            <p>Provider ID: {this.state.currentSelection.provider_id}</p>
+            <p>Reason: {this.state.currentSelection.reason}</p>
+            <p>Referral Source: {this.state.currentSelection.referral_source}</p>
+            <p>Sensitivity: {this.state.currentSelection.sensitivity}</p>
+            <p>STMT count: {this.state.currentSelection.stmt_count}</p>
+            <p>Supervisor ID: {this.state.currentSelection.supervisor_id}</p>
+          </div>
+        ) : null}
       </div>
     );
   }

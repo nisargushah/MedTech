@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { selectedPatientIndex } from "./PatientList";
+import { doFetch, getAuth } from "../RestController";
 
 import { React15Tabulator } from "react-tabulator"; // for React 15.x
 import "react-tabulator/lib/css/bootstrap/tabulator_bootstrap.min.css";
@@ -27,16 +29,37 @@ class ComponentExample extends Component {
     };
   }
 
-  handleButton() {
-    console.log("Component 1 handle");
-
-    //This sends state information over to the Home.js parent
-    this.props.callbackFromParent(this.state);
-    //this.getPatient("1"); //Gets one patient of index 1
+  getAppointment(index){
+    var indexerStr = "";
+    if (index) {
+      indexerStr = "/" + index;
+    }
+    doFetch(
+      "GET",
+      "patient/" + selectedPatientIndex.toString() + "/appointment" + indexerStr,
+      getAuth()
+    ).then((responseJson) => {
+      if (responseJson) {
+        this.setState({ data: responseJson });
+        console.log(responseJson);
+      } else {
+        this.setState({ data: [] });
+      }
+    });
   }
+
+  rowClick = (e, row) => {
+    this.setState({
+      currentSelection: this.state.data[row.getPosition()],
+      showAppointmentFile: true
+    });
+  };
 
   onChange = (e) => {
     this.setState({ [e.target.name]: !this.state[e.target.name] });
+    if(e.target.name === "showAppointmentList"){
+      this.getAppointment();
+    }
   };
 
   render() {
@@ -75,7 +98,17 @@ class ComponentExample extends Component {
           onClick={this.onChange}
         />
         {this.state.showAppointmentFile ? (<div>
-          Appointment file details
+          <p>DOB: {this.state.currentSelection.DOB}</p>
+          <p>Billing Facility Name: {this.state.currentSelection.billing_location_name}</p>
+          <p>Facility Name: {this.state.currentSelection.facility_name}</p>
+          <p>Name: {this.state.currentSelection.fname}    {this.state.currentSelection.lname}</p>
+          <p>PC Appointment Status: {this.state.currentSelection.pc_apptstatus}</p>
+          <p>PC Billing Location: {this.state.currentSelection.pc_billing_location}</p>
+          <p>PC EID: {this.state.currentSelection.pc_eid}</p>
+          <p>PC End Time: {this.state.currentSelection.pc_endTime}</p>
+          <p>PC Event Date: {this.state.currentSelection.pc_eventDate}</p>
+          <p>PC Facility: {this.state.currentSelection.pc_facility}</p>
+          <p>PC Start Time: {this.state.currentSelection.pc_startTime}</p>
         </div>):null}
 
         <input

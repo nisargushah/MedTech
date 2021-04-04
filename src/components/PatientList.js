@@ -29,8 +29,14 @@ class PatientList extends Component {
 
       openEncounters: false,
       showPatientList: true,
-      showPatientFile: false
+      showPatientFile: false,
+
+      getFromLogin: false
     };
+  }
+
+  componentDidMount() {
+    this.getPatient();
   }
 
   //index MUST BE STRING
@@ -60,7 +66,10 @@ class PatientList extends Component {
     //console.log("ref table: ", this.ref.table); // this is the Tabulator table instance
     //console.log("rowClick id: ${row.getData().id}", row, e);
     selectedPatientIndex = row._row.cells[0].value;
-    this.setState({ currentSelection: this.state.data[selectedPatientIndex - 1] });
+    this.setState({
+      currentSelection: this.state.data[selectedPatientIndex - 1],
+      showPatientFile: true
+    });
 
     this.setState({ openEncounters: true });
     this.props.callbackFromParent(this.state.openEncounters);
@@ -92,17 +101,17 @@ class PatientList extends Component {
           onClick={this.onChange}
         />
         {this.state.showPatientList ? (
-        <div>
-          <React15Tabulator
-            ref={(ref) => (this.ref = ref)}
-            columns={columns}
-            data={this.state.formattedData}
-            rowClick={this.rowClick}
-            options={options}
-            data-custom-attr="test-custom-attribute"
-            className="custom-css-class"
-          />
-        </div>
+          <div>
+            <React15Tabulator
+              ref={(ref) => (this.ref = ref)}
+              columns={columns}
+              data={this.state.formattedData}
+              rowClick={this.rowClick}
+              options={options}
+              data-custom-attr="test-custom-attribute"
+              className="custom-css-class"
+            />
+          </div>
         ) : null}
 
         {/*=================
@@ -116,11 +125,44 @@ class PatientList extends Component {
           id="patientProfile"
           onClick={this.onChange}
         />
-        
+
         {this.state.showPatientFile ? (
-        <div>
-          <p>Phone Number: {this.state.currentSelection.phone}</p>
-        </div>
+          <div>
+            <p>
+              Name: {this.state.formattedData[selectedPatientIndex - 1]["name"]}
+            </p>
+            <p>
+              Date of Birth {this.state.currentSelection.dob} (
+              {this.state.formattedData[selectedPatientIndex - 1]["age"]} Years)
+            </p>
+            <p>Sex: {this.state.currentSelection.sex}</p>
+            <p>Phone Number: {this.state.currentSelection.phone}</p>
+            <p>Email: {this.state.currentSelection.email}</p>
+
+            {/*ID of patient in system*/}
+            <p>ID: {this.state.currentSelection.id}</p>
+            <p>PID: {this.state.currentSelection.pid}</p>
+            <p>PUBID: {this.state.currentSelection.pubid}</p>
+
+            {/*Patient's ancestry*/}
+            <p>Ethnicity {this.state.currentSelection.ethnicity}</p>
+            <p>Race: {this.state.currentSelection.race}</p>
+
+            {/*Patient's Address*/}
+            {/*
+            <p>State: {this.state.currentSelection.state}</p>
+            <p>Street: {this.state.currentSelection.street}</p>
+            <p>Postal Code: {this.state.currentSelection.postal_code}</p>
+            <p>City {this.state.currentSelection.city}</p>
+            <p>country code {this.state.currentSelection.country}</p>*/}
+            <p>
+              Address:{" "}
+              {this.state.formattedData[selectedPatientIndex - 1]["address"]}
+            </p>
+            <p>country code {this.state.currentSelection.country}</p>
+
+            <p>Title: {this.state.currentSelection.title}</p>
+          </div>
         ) : null}
       </div>
     );
