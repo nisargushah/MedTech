@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { doFetch } from "./RestController";
+import { doFetch, getAuth } from "./RestController";
 import { Redirect } from "react-router-dom";
 
 import "./styles.css";
@@ -13,7 +13,8 @@ class Login extends Component {
       username: "",
       password: "",
       scope: "default",
-      redirectToReferrer: false
+      redirectToReferrer: false,
+      redirectToReferrerAdmin: false
     };
 
     this.login = this.login.bind(this);
@@ -28,9 +29,22 @@ class Login extends Component {
           sessionStorage.setItem("expires_in", responseJson['expires_in']);
           sessionStorage.setItem("token_type", responseJson['token_type']);
           this.setState({ redirectToReferrer: true });
+          //this.checkAdmin();
         }
       });
     }
+  }
+
+  checkAdmin(){
+    doFetch("GET","/users/authorized/"+this.state.username,getAuth()).then((responseJson) => {
+      if(responseJson['authorized']){
+        //If authorized == 1, redirect to administration
+        this.setState({redirectToReferrerAdmin: true});
+        sessionStorage.setItem("administrator", 1);
+      }else{
+        this.setState({ redirectToReferrer: true });
+      }
+    });
   }
 
   onChange(e) {
@@ -47,30 +61,40 @@ class Login extends Component {
       return <Redirect to={"/Home"} />;
     }
 
+    if (this.state.redirectToReferrerAdmin) {
+      return <Redirect to={"/Admin"} />;
+    }
+
     return (
-      <div className="row" id="Body">
-        <div className="medium-5 columns left">
-          <h4>Login</h4>
-          <label>Username</label>
-          <input
-            type="text"
-            name="username"
-            placeholder="Username"
-            onChange={this.onChange}
-          />
-          <label>Password</label>
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            onChange={this.onChange}
-          />
-          <input
-            type="submit"
-            className="button success"
-            value="Login"
-            onClick={this.login}
-          />
+      <div className="login">
+        <div>
+          <h1>MedTech Patient Management</h1>
+          <div className="login-child">
+            <div>
+            <input
+              type="text"
+              name="username"
+              placeholder="Username"
+              onChange={this.onChange}
+            />
+            </div>
+            <div>
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
+              onChange={this.onChange}
+            />
+            </div>
+            <div>
+            <input
+              type="submit"
+              className="button success"
+              value="Login"
+              onClick={this.login}
+            />
+            </div>
+          </div>
         </div>
       </div>
     );

@@ -1,9 +1,20 @@
 import React, { Component } from "react";
 //import { getUser, removeUserSession } from "./Utils/Common";
 import { Redirect } from "react-router-dom";
+
 import PatientList from "./components/PatientList";
 import EncounterList from "./components/EncounterList";
 import ComponentExample from "./components/ComponentExample";
+import Vital from "./components/Vital";
+import Soap from "./components/Soap";
+import MedicalProblem from "./components/MedicalProblem";
+import Allergy from "./components/Allergy";
+import Medication from "./components/Medication";
+import Surgery from "./components/Surgery";
+import DentalIssue from "./components/DentalIssue";
+import Appointment from "./components/Appointment";
+import Insurance from "./components/Insurance";
+
 
 import "./styles.css";
 
@@ -30,9 +41,9 @@ class Home extends Component {
   };
 
   setOpenEncounters = (dataFromChild) => {
-    this.setState({openEncounters: dataFromChild});
+    this.setState({ openEncounters: dataFromChild });
     console.log(this.state);
-  }
+  };
 
   render() {
     /*
@@ -60,9 +71,9 @@ class Home extends Component {
               value="Placeholder"
             />
             <input
-            type="button"
-            //onClick={this.handleGetAllFacilities.bind(this)}
-            value="Placeholder"
+              type="button"
+              //onClick={this.handleGetAllFacilities.bind(this)}
+              value="Placeholder"
             />
             <input
               type="button"
@@ -85,56 +96,63 @@ class Home extends Component {
           <a href="#encounterProfile">Encounter Profile</a>
           <a href="#encounterVitals">Vitals</a>
           <a href="#encounterSOAP">SOAP</a>
+          <a href="#medicalProblem">Medical Problem</a>
+          <a href="#allergy">Allergy</a>
+          <a href="#surgery">Surgery</a>
+          <a href="#dentalIssue">Dental Issue</a>
           <a href="#appointment">Appointment</a>
+          <a href="#insurance">Insurance</a>
         </div>
-        
+
         <div className="main">
-        {/*=========== 
+          {/*=========== 
         MIDDLE BODY DIV 
           Includes patients list and indexer "wiki-style table of contents"
         ===========*/}
-        <h2 id="patientList">Patient List</h2>
-        <PatientList 
-        id="patientList"
-        callbackFromParent={this.setOpenEncounters}
-        openEncounters={this.state.openEncounters}
-        />
-        <hr></hr>
-        <p>Encounter List</p>
-        <EncounterList 
-        callbackFromParent={this.setOpenEncounters}
-        openEncounters={this.state.openEncounters}
-        />
-        <hr></hr>
-        <p>Component Example Placeholder</p>
-        <ComponentExample
-          callbackFromParent={this.myCallback}
-          tester={this.state.test}
-        />
-        <p>scroll test</p>
-        <p>scroll test</p>
-        <p>scroll test</p>
-        <p>scroll test</p>
-        <p>scroll test</p>
-        <p>scroll test</p>
-        <p>scroll test</p>
-        <p>scroll test</p>
-        <p>scroll test</p>
-        <p>scroll test</p>
-        <p>scroll test</p>
-        <p>scroll test</p>
-        <p>scroll test</p>
-        <p>scroll test</p>
-        <p>scroll test</p>
-        <p>scroll test</p>
-        <p>scroll test</p>
-        <p>scroll test</p>
-        <p>scroll test</p>
-        <p>scroll test</p>
-        <p>scroll test</p>
-        <p>scroll test</p>
-        <p>scroll test</p>
-        <p>scroll test</p>
+          <PatientList
+            id="patientList"
+            callbackFromParent={this.setOpenEncounters}
+            openEncounters={this.state.openEncounters}
+          />
+
+          <EncounterList
+            callbackFromParent={this.setOpenEncounters}
+            openEncounters={this.state.openEncounters}
+          />
+
+          <Vital/>
+          <Soap/>
+          <MedicalProblem/>
+          <Allergy/>
+          <Medication/>
+          <Surgery/>
+          <DentalIssue/>
+          <Appointment/>
+          <Insurance/>
+
+          {/* 
+            Vitals
+            Soap
+
+            Medical Problem
+
+            Allergy
+
+            Medication
+
+            Surgery
+
+            Dental isue
+
+            Appointment
+
+            Insurance
+          */}
+          <p>Component Example Placeholder</p>
+          <ComponentExample
+            callbackFromParent={this.myCallback}
+            tester={this.state.test}
+          />
         </div>
       </div>
     );

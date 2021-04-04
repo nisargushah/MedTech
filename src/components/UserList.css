@@ -1,0 +1,15 @@
+
+.column {
+  width: 100%;
+  text-align: left;
+  border: 1px solid black;
+  line-height: 5px;
+  padding: 2px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}

@@ -2,7 +2,8 @@
   font-family: sans-serif;
   text-align: center;
 }
-.button{
+
+.button {
   width: 80px;
   height: 40px;
   margin: 5px;
@@ -30,20 +31,24 @@
   text-decoration: none;
   text-align: left;
   font-size: 15px;
-  color: #FFFFFF;
+  color: #ffffff;
   display: block;
 }
 
 /* When you mouse over the navigation links, change their color */
 .sidenav a:hover {
-	background-color: #FFFFFF;
-  color: 	#111;
+  background-color: #ffffff;
+  color: #111;
 }
 
 /* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
 @media screen and (max-height: 450px) {
-  .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
+  .sidenav {
+    padding-top: 15px;
+  }
+  .sidenav a {
+    font-size: 18px;
+  }
 }
 /*====================================================
     HEADER
@@ -57,36 +62,94 @@
   height: 40px;
   position: fixed; /* Fixed Sidebar (stay in place on scroll) */
   z-index: 1; /* Stay on top */
-  
 }
 
-.header-right{
-  position:absolute;
-  right:0;
+.header-right {
+  position: absolute;
+  right: 0;
 }
 
-.header-left{
-  position:absolute;
-  left:0;
-  color: #FFFFFF;
+.header-left {
+  position: absolute;
+  left: 0;
+  color: #ffffff;
 }
 
-.header input{
-  height:40px;
-  color: #FFFFFF;
+.header input {
+  height: 40px;
+  color: #ffffff;
   background-color: #111; /* Black */
 }
-.header input:hover{
-  height:40px;
+.header input:hover {
+  height: 40px;
   color: #111;
-  background-color: #FFFFFF; /* Black */
+  background-color: #ffffff; /* Black */
 }
 /*====================================================
     BODY
 ====================================================*/
 /* Style page content */
 .main {
-  margin-top:40px;
+  margin-top: 40px;
   margin-left: 160px; /* Same as the width of the sidebar */
-  padding: 1px;
+}
+
+.tab {
+  font-size: 30px;
+  font-weight: bold;
+  text-align: left;
+  width: 100%;
+  height: 70px;
+  padding: 2px;
+  border-style: none;
+  outline: none;
+}
+
+.subtab {
+  font-size: 20px;
+  font-weight: bold;
+  text-align: left;
+  width: 100%;
+  height: 40px;
+  padding: 2px;
+  border-style: none;
+  outline: none;
+}
+
+.subtab:hover {
+  background-color: grey;
+}
+
+.tab:hover {
+  background-color: grey;
+}
+
+/*====================================================
+    LOGIN PAGE
+====================================================*/
+.login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border: 5px solid black;
+
+  width:60%;
+  height:40%;
+}
+
+.login-child{
+  height:200px;
+}
+
+.login-child div{
+  padding:10px;
+}
+
+.login-child input{
+  font-size:20px;
 }

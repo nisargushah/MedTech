@@ -12,7 +12,6 @@ import { doFetch, getAuth } from "../RestController";
 import React, { Component } from "react";
 import { React15Tabulator } from "react-tabulator";
 import { selectedPatientIndex } from "./PatientList";
-
 import "../styles.css";
 const columns = [
   { title: "ID", field: "id", width: 60 },
@@ -31,10 +30,9 @@ class EncounterList extends Component {
       //Data states holds patient data, formattedData is for table
       data: [],
       formattedData: [],
+      currentSelection: {},
       //This is from JSON data which will be set upon patient selection for display
-      //WORK IN PROGRESS
-      openEncounters: false,
-      id: 0
+      openEncounters: false
     };
   }
 
@@ -43,7 +41,7 @@ class EncounterList extends Component {
     if (this.props.openEncounters) {
       //Perform some operation here
       this.getEncounter();
-      this.setState({ openEncounters: false });
+      this.setState({ openEncounters: false, showEncounterList: true });
       this.props.callbackFromParent(this.state.openEncounters);
     }
   }
@@ -72,7 +70,15 @@ class EncounterList extends Component {
   }
 
   rowClick = (e, row) => {
-    selectedPatientIndex = row._row.cells[0].value;
+    selectedEncounterIndex = row._row.cells[0].value;
+    this.setState({
+      currentSelection: this.state.data[row.getPosition()],
+      showEncounterFile: true
+    });
+  };
+
+  onChange = (e) => {
+    this.setState({ [e.target.name]: !this.state[e.target.name] });
   };
 
   render() {
@@ -90,25 +96,70 @@ class EncounterList extends Component {
     };
     return (
       <div>
-        <div>
-          <input
-            type="button"
-            onClick={this.handleButton.bind(this)}
-            value="Test Button"
-          />
+        <input
+          type="button"
+          value="Encounter List"
+          name="showEncounterList"
+          className="tab"
+          id="encounterList"
+          onClick={this.onChange}
+        />
 
-          <React15Tabulator
-            ref={(ref) => (this.ref = ref)}
-            columns={columns}
-            data={this.state.data}
-            rowClick={this.rowClick}
-            options={options}
-            data-custom-attr="test-custom-attribute"
-            className="custom-css-class"
-          />
-        </div>
+        {this.state.showEncounterList ? (
+          <div>
+            <React15Tabulator
+              ref={(ref) => (this.ref = ref)}
+              columns={columns}
+              data={this.state.data}
+              rowClick={this.rowClick}
+              options={options}
+              data-custom-attr="test-custom-attribute"
+              className="custom-css-class"
+            />
+          </div>
+        ) : null}
 
-        <p>Encounter ID: {this.state.id}</p>
+        <input
+          type="button"
+          value="Encounter File"
+          name="showEncounterFile"
+          className="subtab"
+          id="encounterFile"
+          onClick={this.onChange}
+        />
+        {this.state.showEncounterFile ? (
+          <div>
+            <p>Billing Facility ID: {this.state.currentSelection.billing_facility}</p>
+            <p>Billing Facility Name:{this.state.currentSelection.billing_facility_name}</p>
+
+            <p>Billing Note: {this.state.currentSelection.billing_note}</p>
+
+            <p>Encounter ID: {this.state.currentSelection.id}</p>
+            <p>External ID: {this.state.currentSelection.external_id}</p>
+            <p>Date: {this.state.currentSelection.date}</p>
+            <p>Facility: {this.state.currentSelection.facility}</p>
+            <p>Facility ID: {this.state.currentSelection.facility_id}</p>
+            <p>Invoice Reference Number: {this.state.currentSelection.invoice_refno}</p>
+
+            <p>Last Level Billed: {this.state.currentSelection.last_level_billed}</p>
+            <p>Last Level Closed: {this.state.currentSelection.last_level_closed}</p>
+            <p>Last STMT Date: {this.state.currentSelection.last_stmt_date}</p>
+
+            <p>Onset Date: {this.state.currentSelection.onset_date}</p>
+
+            <p>PC Cat ID: {this.state.currentSelection.pc_catid}</p>
+            <p>PC Catname: {this.state.currentSelection.pc_catname}</p>
+            <p>PID: {this.state.currentSelection.pid}</p>
+            <p>Pos Code: {this.state.currentSelection.pos_code}</p>
+
+            <p>Provider ID: {this.state.currentSelection.provider_id}</p>
+            <p>Reason: {this.state.currentSelection.reason}</p>
+            <p>Referral Source: {this.state.currentSelection.referral_source}</p>
+            <p>Sensitivity: {this.state.currentSelection.sensitivity}</p>
+            <p>STMT count: {this.state.currentSelection.stmt_count}</p>
+            <p>Supervisor ID: {this.state.currentSelection.supervisor_id}</p>
+          </div>
+        ) : null}
       </div>
     );
   }
