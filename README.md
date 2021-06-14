@@ -2,6 +2,6 @@
 
 Medtech developed by Team Medtech from the University of Texas at Arlington
 
-# Maxwell Pham's Branch
+# Installation
 
-Test import
+This project requires nodeJS and React, and also requires OpenEMR installed at uta.cloud server.
